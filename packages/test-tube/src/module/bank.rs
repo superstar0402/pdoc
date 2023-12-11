@@ -1,9 +1,9 @@
 #![cfg(feature = "bank")]
 
 use crate::{fn_execute, fn_query};
-use osmosis_std::types::cosmos::bank::v1beta1::{
-    MsgSend, MsgSendResponse, QueryAllBalancesRequest, QueryAllBalancesResponse,
-    QueryBalanceRequest, QueryBalanceResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse,
+use provwasm_std::types::cosmos::bank::v1beta1::{
+    MsgSend, MsgSendResponse, QueryBalanceRequest, QueryBalanceResponse, QuerySupplyOfRequest,
+    QuerySupplyOfResponse,
 };
 
 use crate::module::Module;
@@ -32,10 +32,6 @@ where
     }
 
     fn_query! {
-        pub query_all_balances ["/cosmos.bank.v1beta1.Query/AllBalances"]: QueryAllBalancesRequest => QueryAllBalancesResponse
-    }
-
-    fn_query! {
-        pub query_total_supply ["/cosmos.bank.v1beta1.Query/TotalSupply"]: QueryTotalSupplyRequest => QueryTotalSupplyResponse
+        pub query_supply_of ["/cosmos.bank.v1beta1.Query/SupplyOf"]: QuerySupplyOfRequest => QuerySupplyOfResponse
     }
 }
