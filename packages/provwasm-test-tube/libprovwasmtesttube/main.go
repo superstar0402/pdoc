@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/cosmos/cosmos-sdk/x/bank/testutil"
+	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	"os"
 	"sync"
 	"time"
@@ -50,16 +51,13 @@ func InitTestEnv() uint64 {
 	mu.Lock()
 	defer mu.Unlock()
 
-	envCounter += 1
-	id := envCounter
-
-	nodeHome, err := os.MkdirTemp("", ".osmosis-test-tube-temp-")
+	nodeHome, err := os.MkdirTemp("", ".provwasm-test-tube-temp")
 	if err != nil {
 		panic(err)
 	}
 
 	env := new(testenv.TestEnv)
-	env.App = testenv.SetupOsmosisApp(nodeHome)
+	env.App, env.Validator = testenv.SetupProvenanceApp(nodeHome)
 	env.NodeHome = nodeHome
 	env.ParamTypesRegistry = *testenv.NewParamTypeRegistry()
 
@@ -68,13 +66,27 @@ func InitTestEnv() uint64 {
 	// Allow testing unoptimized contract
 	wasmtypes.MaxWasmSize = 1024 * 1024 * 1024 * 1024 * 1024
 
-	env.Ctx = env.App.BaseApp.NewContext(false, tmproto.Header{Height: 0, ChainID: "osmosis-1", Time: time.Now().UTC()})
+	env.Ctx = env.App.BaseApp.NewContext(false, tmproto.Header{Height: 1, ChainID: "testnet", Time: time.Now().UTC()})
+
+	validators := env.App.StakingKeeper.GetAllValidators(env.Ctx)
+	valAddrFancy, _ := validators[0].GetConsAddr()
+	env.App.SlashingKeeper.SetValidatorSigningInfo(env.Ctx, valAddrFancy, slashingtypes.NewValidatorSigningInfo(
+		valAddrFancy,
+		0,
+		0,
+		time.Unix(0, 0),
+		false,
+		0,
+	))
 
 	env.BeginNewBlock(false, 5)
 
 	reqEndBlock := abci.RequestEndBlock{Height: env.Ctx.BlockHeight()}
 	env.App.EndBlock(reqEndBlock)
 	env.App.Commit()
+
+	envCounter += 1
+	id := envCounter
 
 	envRegister.Store(id, *env)
 
@@ -357,10 +369,10 @@ func GetValidatorAddress(envId uint64, n int32) *C.char {
 }
 
 //export GetValidatorPrivateKey
-func GetValidatorPrivateKey(envId uint64, n int32) *C.char {
+func GetValidatorPrivateKey(envId uint64) *C.char {
 	env := loadEnv(envId)
+	priv := env.GetValidatorPrivateKey()
 
-	priv := env.ValPrivs[n].Key
 	base64Priv := base64.StdEncoding.EncodeToString(priv)
 	return C.CString(base64Priv)
 }
@@ -385,4 +397,6 @@ func encodeBytesResultBytes(bytes []byte) *C.char {
 }
 
 // must define main for ffi build
-func main() {}
+func main() {
+	InitTestEnv()
+}
