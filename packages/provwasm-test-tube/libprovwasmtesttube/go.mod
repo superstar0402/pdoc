@@ -3,7 +3,7 @@ module github.com/provenance-io/test-tube/provwasm-test-tube
 go 1.20
 
 require (
-	cosmossdk.io/errors v1.0.0
+	cosmossdk.io/math v1.2.0
 	github.com/CosmWasm/wasmd v0.29.0
 	github.com/cosmos/cosmos-sdk v0.46.12
 	github.com/gogo/protobuf v1.3.3
@@ -20,7 +20,7 @@ require (
 	cloud.google.com/go/compute/metadata v0.2.3 // indirect
 	cloud.google.com/go/iam v1.1.2 // indirect
 	cloud.google.com/go/storage v1.30.1 // indirect
-	cosmossdk.io/math v1.2.0 // indirect
+	cosmossdk.io/errors v1.0.0 // indirect
 	filippo.io/edwards25519 v1.0.0-rc.1 // indirect
 	github.com/99designs/go-keychain v0.0.0-20191008050251-8e49817e8af4 // indirect
 	github.com/99designs/keyring v1.2.1 // indirect
@@ -183,19 +183,14 @@ replace github.com/cosmos/cosmos-sdk => github.com/provenance-io/cosmos-sdk v0.4
 
 replace github.com/cosmos/ibc-go/v6 => github.com/provenance-io/ibc-go/v6 v6.2.0-pio-1
 
-// Use cometbft as requied by the SDK at v0.46.13
 replace github.com/tendermint/tendermint => github.com/cometbft/cometbft v0.34.29
 
-// Replace broken goleveldb as required by the SDK at v0.46.13
 replace github.com/syndtr/goleveldb => github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7
 
 replace github.com/99designs/keyring => github.com/cosmos/keyring v1.2.0
 
 replace github.com/tecbot/gorocksdb => github.com/cosmos/gorocksdb v1.1.1
 
-// Fix upstream GHSA-h395-qcrw-5vmq vulnerability.
-// TODO Remove it: https://github.com/cosmos/cosmos-sdk/issues/10409
 replace github.com/gin-gonic/gin => github.com/gin-gonic/gin v1.7.0
 
-// TODO: This is also required for https://github.com/provenance-io/provenance/issues/1414
 replace github.com/CosmWasm/wasmd => github.com/provenance-io/wasmd v0.30.0-pio-5
