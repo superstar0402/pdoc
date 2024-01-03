@@ -67,7 +67,6 @@ where
                     })
                     .collect(),
                 proposer,
-                is_expedited,
             },
             signer,
         )
@@ -122,7 +121,6 @@ impl<'a> GovWithAppAccess<'a> {
                 }),
                 initial_deposit: min_deposit,
                 proposer,
-                is_expedited,
             },
             signer,
         )?;
