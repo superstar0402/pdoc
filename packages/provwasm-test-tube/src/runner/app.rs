@@ -159,7 +159,7 @@ mod tests {
     fn test_init_accounts() {
         let app = ProvwasmTestApp::default();
         let accounts = app
-            .init_accounts(&coins(100_000_000_000, "uosmo"), 3)
+            .init_accounts(&coins(100_000_000_000, "nhash"), 3)
             .unwrap();
 
         assert!(accounts.get(0).is_some());
@@ -188,11 +188,11 @@ mod tests {
     fn test_get_block_height() {
         let app = ProvwasmTestApp::default();
 
-        assert_eq!(app.get_block_height(), 1i64);
+        assert_eq!(app.get_block_height(), 2i64);
 
         app.increase_time(10u64);
 
-        assert_eq!(app.get_block_height(), 2i64);
+        assert_eq!(app.get_block_height(), 3i64);
     }
 
     #[test]
@@ -201,13 +201,7 @@ mod tests {
 
         let app = ProvwasmTestApp::default();
         let accs = app
-            .init_accounts(
-                &[
-                    Coin::new(1_000_000_000_000, "uatom"),
-                    Coin::new(1_000_000_000_000, "uosmo"),
-                ],
-                2,
-            )
+            .init_accounts(&[Coin::new(100_000_000_000_000, "nhash")], 2)
             .unwrap();
         let admin = &accs[0];
         let new_admin = &accs[1];
