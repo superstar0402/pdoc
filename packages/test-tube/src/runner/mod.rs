@@ -1,8 +1,7 @@
 use cosmwasm_std::CosmosMsg;
-use serde::de::DeserializeOwned;
 
 use crate::account::SigningAccount;
-use crate::runner::result::{RunnerExecuteResult, RunnerResult};
+use crate::runner::result::{RunnerExecuteResult, RunnerExecuteResultMult, RunnerResult};
 use crate::utils::{bank_msg_to_any, wasm_msg_to_any};
 use crate::RunnerError;
 
@@ -29,6 +28,14 @@ pub trait Runner<'a> {
         msgs: &[(M, &str)],
         signer: &SigningAccount,
     ) -> RunnerExecuteResult<R>
+    where
+        M: ::prost::Message,
+        R: ::prost::Message + Default;
+
+    fn execute_single_block<M, R>(
+        &self,
+        msgs: &[(M, &str, &SigningAccount)],
+    ) -> RunnerExecuteResultMult<R>
     where
         M: ::prost::Message,
         R: ::prost::Message + Default;
@@ -68,5 +75,5 @@ pub trait Runner<'a> {
     fn query<Q, R>(&self, path: &str, query: &Q) -> RunnerResult<R>
     where
         Q: ::prost::Message,
-        R: ::prost::Message + DeserializeOwned + Default;
+        R: ::prost::Message + Default;
 }
