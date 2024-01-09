@@ -4,20 +4,20 @@ use cosmrs::crypto::secp256k1::SigningKey;
 use cosmrs::proto::tendermint::abci::{RequestDeliverTx, ResponseDeliverTx};
 use cosmrs::tx::{Fee, SignerInfo};
 use cosmrs::{tx, Any};
-use cosmwasm_std::{Coin, Timestamp};
+use cosmwasm_std::Coin;
 use prost::Message;
 
 use crate::account::{Account, FeeSetting, SigningAccount};
 use crate::bindings::{
-    AccountNumber, AccountSequence, BeginBlock, CleanUp, EndBlock, Execute, GetBlockHeight,
-    GetBlockTime, GetParamSet, GetValidatorAddress, GetValidatorPrivateKey, IncreaseTime,
-    InitAccount, InitTestEnv, Query, SetParamSet, Simulate,
+    AccountNumber, AccountSequence, BeginBlock, EndBlock, Execute, GetBlockHeight, GetBlockTime,
+    GetParamSet, GetValidatorAddress, GetValidatorPrivateKey, IncreaseTime, InitAccount,
+    InitTestEnv, Query, SetParamSet, Simulate,
 };
-use crate::redefine_as_go_string;
 use crate::runner::error::{DecodeError, EncodeError, RunnerError};
 use crate::runner::result::RawResult;
-use crate::runner::result::{RunnerExecuteResult, RunnerResult};
+use crate::runner::result::{RunnerExecuteResult, RunnerExecuteResultMult, RunnerResult};
 use crate::runner::Runner;
+use crate::{redefine_as_go_string, ExecuteResponse};
 
 pub const OSMOSIS_MIN_GAS_PRICE: u128 = 2_500;
 
@@ -67,37 +67,47 @@ impl BaseApp {
         Ok(addr)
     }
 
-    /// Get the first validator signing account
-    pub fn get_first_validator_signing_account(&self) -> RunnerResult<SigningAccount> {
-        let base64_priv = unsafe {
-            let val_priv = GetValidatorPrivateKey(self.id, 0);
-            CString::from_raw(val_priv)
+    /// Get the first validator private key
+    pub fn get_first_validator_private_key(&self) -> RunnerResult<String> {
+        let pkey = unsafe {
+            let pkey = GetValidatorPrivateKey(self.id);
+            CString::from_raw(pkey)
         }
         .to_str()
         .map_err(DecodeError::Utf8Error)?
         .to_string();
 
-        let secp256k1_priv = base64::decode(base64_priv).map_err(DecodeError::Base64DecodeError)?;
-        let signging_key = SigningKey::from_bytes(&secp256k1_priv).map_err(|e| {
-            let msg = e.to_string();
-            DecodeError::SigningKeyDecodeError { msg }
-        })?;
-
-        Ok(SigningAccount::new(
-            self.address_prefix.clone(),
-            signging_key,
-            FeeSetting::Auto {
-                gas_price: Coin::new(OSMOSIS_MIN_GAS_PRICE, self.fee_denom.clone()),
-                gas_adjustment: self.default_gas_adjustment,
-            },
-        ))
+        Ok(pkey)
     }
 
-    /// Get the current block time
-    pub fn get_block_timestamp(&self) -> Timestamp {
-        let result = unsafe { GetBlockTime(self.id) };
+    /// Get the first validator signing account
+    pub fn get_first_validator_signing_account(
+        &self,
+        denom: String,
+        gas_adjustment: f64,
+    ) -> RunnerResult<SigningAccount> {
+        let pkey = unsafe {
+            let pkey = GetValidatorPrivateKey(self.id);
+            CString::from_raw(pkey)
+        }
+        .to_str()
+        .map_err(DecodeError::Utf8Error)?
+        .to_string();
 
-        Timestamp::from_nanos(result as u64)
+        let secp256k1_priv = base64::decode(pkey).unwrap();
+
+        let signing_key = SigningKey::from_slice(&secp256k1_priv).unwrap();
+
+        let validator = SigningAccount::new(
+            "inj".to_string(),
+            signing_key,
+            FeeSetting::Auto {
+                gas_price: Coin::new(OSMOSIS_MIN_GAS_PRICE, denom),
+                gas_adjustment,
+            },
+        );
+
+        Ok(validator)
     }
 
     /// Get the current block time
@@ -131,14 +141,15 @@ impl BaseApp {
         .to_string();
 
         let secp256k1_priv = base64::decode(base64_priv).map_err(DecodeError::Base64DecodeError)?;
-        let signging_key = SigningKey::from_bytes(&secp256k1_priv).map_err(|e| {
+
+        let signing_key = SigningKey::from_slice(&secp256k1_priv).map_err(|e| {
             let msg = e.to_string();
             DecodeError::SigningKeyDecodeError { msg }
         })?;
 
         Ok(SigningAccount::new(
             self.address_prefix.clone(),
-            signging_key,
+            signing_key,
             FeeSetting::Auto {
                 gas_price: Coin::new(OSMOSIS_MIN_GAS_PRICE, self.fee_denom.clone()),
                 gas_adjustment: self.default_gas_adjustment,
@@ -162,6 +173,7 @@ impl BaseApp {
     {
         let tx_body = tx::Body::new(msgs, "", 0u32);
         let addr = signer.address();
+
         redefine_as_go_string!(addr);
 
         let seq = unsafe { AccountSequence(self.id, addr) };
@@ -227,7 +239,7 @@ impl BaseApp {
     where
         I: IntoIterator<Item = cosmrs::Any>,
     {
-        match &signer.fee_setting() {
+        let res = match &signer.fee_setting() {
             FeeSetting::Auto {
                 gas_price,
                 gas_adjustment,
@@ -240,13 +252,14 @@ impl BaseApp {
                     amount: (((gas_limit as f64) * (gas_price.amount.u128() as f64)).ceil() as u64)
                         .into(),
                 };
-
                 Ok(Fee::from_amount_and_gas(amount, gas_limit))
             }
             FeeSetting::Custom { .. } => {
                 panic!("estimate fee is a private function and should never be called when fee_setting is Custom");
             }
-        }
+        };
+
+        res
     }
 
     /// Ensure that all execution that happens in `execution` happens in a block
@@ -300,15 +313,6 @@ impl BaseApp {
     }
 }
 
-/// Cleanup the test environment when the app is dropped.
-impl Drop for BaseApp {
-    fn drop(&mut self) {
-        unsafe {
-            CleanUp(self.id);
-        }
-    }
-}
-
 impl<'a> Runner<'a> for BaseApp {
     fn execute_multiple<M, R>(
         &self,
@@ -335,6 +339,77 @@ impl<'a> Runner<'a> for BaseApp {
         self.execute_multiple_raw(msgs, signer)
     }
 
+    fn execute_single_block<M, R>(
+        &self,
+        msgs: &[(M, &str, &SigningAccount)],
+    ) -> RunnerExecuteResultMult<R>
+    where
+        M: ::prost::Message,
+        R: ::prost::Message + Default,
+    {
+        let mut responses: Vec<ExecuteResponse<R>> = vec![];
+        unsafe {
+            BeginBlock(self.id);
+
+            let mut fees: Vec<Fee> = vec![];
+            // first estimate all fees
+            for msg in msgs.iter() {
+                let signer = msg.2;
+
+                let mut buf = Vec::new();
+                M::encode(&msg.0, &mut buf).map_err(EncodeError::ProtoEncodeError)?;
+
+                let msg = vec![cosmrs::Any {
+                    type_url: msg.1.to_string(),
+                    value: buf,
+                }];
+
+                let fee = match &signer.fee_setting() {
+                    FeeSetting::Auto { .. } => self.estimate_fee(msg.clone(), signer)?,
+                    FeeSetting::Custom { amount, gas_limit } => Fee::from_amount_and_gas(
+                        cosmrs::Coin {
+                            denom: amount.denom.parse().unwrap(),
+                            amount: amount.amount.to_string().parse().unwrap(),
+                        },
+                        *gas_limit,
+                    ),
+                };
+                fees.push(fee);
+            }
+
+            // then execute all messages
+            for (idx, msg) in msgs.iter().enumerate() {
+                let signer = msg.2;
+                let fee = &fees[idx];
+
+                let mut buf = Vec::new();
+                M::encode(&msg.0, &mut buf).map_err(EncodeError::ProtoEncodeError)?;
+
+                let msg = vec![cosmrs::Any {
+                    type_url: msg.1.to_string(),
+                    value: buf,
+                }];
+
+                let tx = self.create_signed_tx(msg.clone(), signer, fee.clone())?;
+                let mut buf = Vec::new();
+                RequestDeliverTx::encode(&RequestDeliverTx { tx: tx.into() }, &mut buf)
+                    .map_err(EncodeError::ProtoEncodeError)?;
+
+                let base64_req = base64::encode(buf);
+                redefine_as_go_string!(base64_req);
+
+                let res = Execute(self.id, base64_req);
+                let res = RawResult::from_non_null_ptr(res).into_result()?;
+                let res = ResponseDeliverTx::decode(res.as_slice()).unwrap();
+
+                responses.push(res.try_into()?);
+            }
+
+            EndBlock(self.id);
+        }
+        Ok(responses)
+    }
+
     fn execute_multiple_raw<R>(
         &self,
         msgs: Vec<cosmrs::Any>,
@@ -357,9 +432,8 @@ impl<'a> Runner<'a> for BaseApp {
                 };
 
                 let tx = self.create_signed_tx(msgs.clone(), signer, fee)?;
-
                 let mut buf = Vec::new();
-                RequestDeliverTx::encode(&RequestDeliverTx { tx }, &mut buf)
+                RequestDeliverTx::encode(&RequestDeliverTx { tx: tx.into() }, &mut buf)
                     .map_err(EncodeError::ProtoEncodeError)?;
 
                 let base64_req = base64::encode(buf);
@@ -369,7 +443,7 @@ impl<'a> Runner<'a> for BaseApp {
                 let res = RawResult::from_non_null_ptr(res).into_result()?;
 
                 ResponseDeliverTx::decode(res.as_slice())
-                    .map_err(DecodeError::ProtoDecodeError)?
+                    .unwrap()
                     .try_into()
             })
         }
