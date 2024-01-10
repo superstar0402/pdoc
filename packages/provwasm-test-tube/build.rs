@@ -39,6 +39,7 @@ fn main() {
     }
 
     let out_dir_lib_path = out_dir.join(lib_filename);
+    println!("out_dir_lib_path: {:?}", out_dir_lib_path);
     build_libprovwasmtesttube(out_dir_lib_path);
 
     // copy built lib to target dir if debug build
