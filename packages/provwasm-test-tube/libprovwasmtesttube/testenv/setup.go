@@ -88,6 +88,7 @@ func SetupProvenanceApp(nodeHome string) (*app.App, []byte) {
 		app.MakeEncodingConfig(),
 		DebugAppOptions{},
 	)
+
 	privVal := mock.NewPV()
 	pubKey, err := privVal.GetPubKey()
 

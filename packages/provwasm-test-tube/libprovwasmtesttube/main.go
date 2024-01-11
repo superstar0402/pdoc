@@ -398,5 +398,5 @@ func encodeBytesResultBytes(bytes []byte) *C.char {
 
 // must define main for ffi build
 func main() {
-	InitTestEnv()
+	//InitTestEnv()
 }
