@@ -1,15 +1,14 @@
 use cosmrs::Any;
-use cosmwasm_std::{Coin, Timestamp};
+use cosmwasm_std::Coin;
 use prost::Message;
-use serde::de::DeserializeOwned;
 
 use test_tube::account::SigningAccount;
-use test_tube::runner::result::{RunnerExecuteResult, RunnerResult};
+use test_tube::runner::result::{RunnerExecuteResult, RunnerExecuteResultMult, RunnerResult};
 use test_tube::runner::Runner;
 use test_tube::BaseApp;
 
 const FEE_DENOM: &str = "nhash";
-const OSMO_ADDRESS_PREFIX: &str = "tp";
+const PROVENANCE_TEST_ADDRESS_PREFIX: &str = "tp";
 const CHAIN_ID: &str = "testnet";
 const DEFAULT_GAS_ADJUSTMENT: f64 = 1.2;
 
@@ -30,15 +29,10 @@ impl ProvwasmTestApp {
             inner: BaseApp::new(
                 FEE_DENOM,
                 CHAIN_ID,
-                OSMO_ADDRESS_PREFIX,
+                PROVENANCE_TEST_ADDRESS_PREFIX,
                 DEFAULT_GAS_ADJUSTMENT,
             ),
         }
-    }
-
-    /// Get the current block time as a timestamp
-    pub fn get_block_timestamp(&self) -> Timestamp {
-        self.inner.get_block_timestamp()
     }
 
     /// Get the current block time in nanoseconds
@@ -61,9 +55,19 @@ impl ProvwasmTestApp {
         self.inner.get_first_validator_address()
     }
 
+    /// Get the first validator private key
+    pub fn get_first_validator_private_key(&self) -> RunnerResult<String> {
+        self.inner.get_first_validator_private_key()
+    }
+
     /// Get the first validator signing account
-    pub fn get_first_validator_signing_account(&self) -> RunnerResult<SigningAccount> {
-        self.inner.get_first_validator_signing_account()
+    pub fn get_first_validator_signing_account(
+        &self,
+        denom: String,
+        gas_adjustment: f64,
+    ) -> RunnerResult<SigningAccount> {
+        self.inner
+            .get_first_validator_signing_account(denom, gas_adjustment)
     }
 
     /// Increase the time of the blockchain by the given number of seconds.
@@ -122,12 +126,15 @@ impl<'a> Runner<'a> for ProvwasmTestApp {
         self.inner.execute_multiple(msgs, signer)
     }
 
-    fn query<Q, R>(&self, path: &str, q: &Q) -> RunnerResult<R>
+    fn execute_single_block<M, R>(
+        &self,
+        msgs: &[(M, &str, &SigningAccount)],
+    ) -> RunnerExecuteResultMult<R>
     where
-        Q: ::prost::Message,
-        R: ::prost::Message + DeserializeOwned + Default,
+        M: ::prost::Message,
+        R: ::prost::Message + Default,
     {
-        self.inner.query(path, q)
+        self.inner.execute_single_block(msgs)
     }
 
     fn execute_multiple_raw<R>(
@@ -140,6 +147,14 @@ impl<'a> Runner<'a> for ProvwasmTestApp {
     {
         self.inner.execute_multiple_raw(msgs, signer)
     }
+
+    fn query<Q, R>(&self, path: &str, q: &Q) -> RunnerResult<R>
+    where
+        Q: ::prost::Message,
+        R: ::prost::Message + Default,
+    {
+        self.inner.query(path, q)
+    }
 }
 
 #[cfg(test)]
@@ -149,11 +164,10 @@ mod tests {
     use cosmwasm_std::{coins, Coin};
 
     use test_tube::account::Account;
-    use test_tube::module::Module;
-    use test_tube::runner::*;
+    use test_tube::{Module, RunnerError};
 
-    use crate::module::Wasm;
     use crate::runner::app::ProvwasmTestApp;
+    use crate::wasm::Wasm;
 
     #[test]
     fn test_init_accounts() {
@@ -196,7 +210,7 @@ mod tests {
     }
 
     #[test]
-    fn test_wasm_execute_and_query() {
+    fn test_wasm_execute_and_query() -> Result<(), RunnerError> {
         use cw1_whitelist::msg::*;
 
         let app = ProvwasmTestApp::default();
@@ -208,11 +222,8 @@ mod tests {
 
         let wasm = Wasm::new(&app);
         let wasm_byte_code = std::fs::read("./test_artifacts/cw1_whitelist.wasm").unwrap();
-        let code_id = wasm
-            .store_code(&wasm_byte_code, None, admin)
-            .unwrap()
-            .data
-            .code_id;
+        let store_res = wasm.store_code(&wasm_byte_code, None, admin);
+        let code_id = store_res?.data.code_id;
         assert_eq!(code_id, 1);
 
         // initialize admins and check if the state is correct
@@ -256,5 +267,7 @@ mod tests {
 
         assert_eq!(admin_list.admins, new_admins);
         assert!(admin_list.mutable);
+
+        Ok(())
     }
 }
