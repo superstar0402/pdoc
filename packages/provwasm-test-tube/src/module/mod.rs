@@ -7,4 +7,5 @@ pub mod exchange;
 pub mod gov;
 mod hold;
 mod marker;
+mod metadata;
 pub mod wasm;
