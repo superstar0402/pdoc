@@ -164,26 +164,26 @@ where
     }
 
     fn_query! {
-        pub query_record_specs_for_contract_spec ["/provenance.marker.v1.Query/RecordSpecificationsForContractSpecificationRequest"]: RecordSpecificationsForContractSpecificationRequest => RecordSpecificationsForContractSpecificationResponse
+        pub query_record_specs_for_contract_spec ["/provenance.metadata.v1.Query/RecordSpecificationsForContractSpecificationRequest"]: RecordSpecificationsForContractSpecificationRequest => RecordSpecificationsForContractSpecificationResponse
     }
 
     fn_query! {
-        pub query_record_specification ["/provenance.marker.v1.Query/RecordSpecificationRequest"]: RecordSpecificationRequest => RecordSpecificationResponse
+        pub query_record_specification ["/provenance.metadata.v1.Query/RecordSpecificationRequest"]: RecordSpecificationRequest => RecordSpecificationResponse
     }
 
     fn_query! {
-        pub query_os_locator_params ["/provenance.marker.v1.Query/OSLocatorParamsRequest"]: OsLocatorParamsRequest => OsLocatorParamsResponse
+        pub query_os_locator_params ["/provenance.metadata.v1.Query/OSLocatorParamsRequest"]: OsLocatorParamsRequest => OsLocatorParamsResponse
     }
 
     fn_query! {
-        pub query_os_locator ["/provenance.marker.v1.Query/OSLocatorRequest"]: OsLocatorRequest => OsLocatorResponse
+        pub query_os_locator ["/provenance.metadata.v1.Query/OSLocatorRequest"]: OsLocatorRequest => OsLocatorResponse
     }
 
     fn_query! {
-        pub query_os_locators ["/provenance.marker.v1.Query/OSLocatorsByURIRequest"]: OsLocatorsByUriRequest => OsLocatorsByUriResponse
+        pub query_os_locators ["/provenance.metadata.v1.Query/OSLocatorsByURIRequest"]: OsLocatorsByUriRequest => OsLocatorsByUriResponse
     }
 
     fn_query! {
-        pub query_os_locators_by_scope ["/provenance.marker.v1.Query/OSLocatorsByScopeRequest"]: OsLocatorsByScopeRequest => OsLocatorsByScopeResponse
+        pub query_os_locators_by_scope ["/provenance.metadata.v1.Query/OSLocatorsByScopeRequest"]: OsLocatorsByScopeRequest => OsLocatorsByScopeResponse
     }
 }
