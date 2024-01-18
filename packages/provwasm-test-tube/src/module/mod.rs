@@ -9,4 +9,5 @@ mod hold;
 mod marker;
 mod metadata;
 mod name;
+mod reward;
 pub mod wasm;
