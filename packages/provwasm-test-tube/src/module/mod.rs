@@ -8,4 +8,5 @@ pub mod gov;
 mod hold;
 mod marker;
 mod metadata;
+mod name;
 pub mod wasm;
