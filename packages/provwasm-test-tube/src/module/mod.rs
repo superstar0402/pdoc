@@ -10,4 +10,5 @@ mod marker;
 mod metadata;
 mod name;
 mod reward;
+mod trigger;
 pub mod wasm;
