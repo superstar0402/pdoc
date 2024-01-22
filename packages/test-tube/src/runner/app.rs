@@ -19,7 +19,7 @@ use crate::runner::result::{RunnerExecuteResult, RunnerExecuteResultMult, Runner
 use crate::runner::Runner;
 use crate::{redefine_as_go_string, ExecuteResponse};
 
-pub const OSMOSIS_MIN_GAS_PRICE: u128 = 2_500;
+pub const PROVENANCE_MIN_GAS_PRICE: u128 = 1905;
 
 #[derive(Debug, PartialEq)]
 pub struct BaseApp {
@@ -102,7 +102,7 @@ impl BaseApp {
             "inj".to_string(),
             signing_key,
             FeeSetting::Auto {
-                gas_price: Coin::new(OSMOSIS_MIN_GAS_PRICE, denom),
+                gas_price: Coin::new(PROVENANCE_MIN_GAS_PRICE, denom),
                 gas_adjustment,
             },
         );
@@ -151,7 +151,7 @@ impl BaseApp {
             self.address_prefix.clone(),
             signing_key,
             FeeSetting::Auto {
-                gas_price: Coin::new(OSMOSIS_MIN_GAS_PRICE, self.fee_denom.clone()),
+                gas_price: Coin::new(PROVENANCE_MIN_GAS_PRICE, self.fee_denom.clone()),
                 gas_adjustment: self.default_gas_adjustment,
             },
         ))
@@ -217,7 +217,7 @@ impl BaseApp {
         let zero_fee = Fee::from_amount_and_gas(
             cosmrs::Coin {
                 denom: self.fee_denom.parse().unwrap(),
-                amount: OSMOSIS_MIN_GAS_PRICE,
+                amount: PROVENANCE_MIN_GAS_PRICE,
             },
             0u64,
         );
