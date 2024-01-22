@@ -1,15 +1,15 @@
 #![doc = include_str!("../README.md")]
 
-mod module;
-mod runner;
-
 pub use cosmrs;
 pub use provwasm_std;
 
 pub use module::*;
 pub use runner::app::ProvwasmTestApp;
-pub use test_tube::account::{Account, FeeSetting, NonSigningAccount, SigningAccount};
-pub use test_tube::runner::error::{DecodeError, EncodeError, RunnerError};
-pub use test_tube::runner::result::{ExecuteResponse, RunnerExecuteResult, RunnerResult};
-pub use test_tube::runner::Runner;
-pub use test_tube::{fn_execute, fn_query};
+pub use test_tube_prov::account::{Account, FeeSetting, NonSigningAccount, SigningAccount};
+pub use test_tube_prov::runner::error::{DecodeError, EncodeError, RunnerError};
+pub use test_tube_prov::runner::result::{ExecuteResponse, RunnerExecuteResult, RunnerResult};
+pub use test_tube_prov::runner::Runner;
+pub use test_tube_prov::{fn_execute, fn_query};
+
+pub mod module;
+pub mod runner;

@@ -1,5 +1,5 @@
-pub use test_tube::macros;
-pub use test_tube::module::Module;
+pub use test_tube_prov::macros;
+pub use test_tube_prov::module::Module;
 
 pub mod attribute;
 pub mod bank;
@@ -8,6 +8,7 @@ pub mod gov;
 pub mod hold;
 pub mod marker;
 pub mod metadata;
+pub mod msgfees;
 pub mod name;
 pub mod reward;
 pub mod trigger;

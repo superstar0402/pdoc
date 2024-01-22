@@ -2,15 +2,15 @@ use cosmrs::Any;
 use cosmwasm_std::Coin;
 use prost::Message;
 
-use test_tube::account::SigningAccount;
-use test_tube::runner::result::{RunnerExecuteResult, RunnerExecuteResultMult, RunnerResult};
-use test_tube::runner::Runner;
-use test_tube::BaseApp;
+use test_tube_prov::account::SigningAccount;
+use test_tube_prov::runner::result::{RunnerExecuteResult, RunnerExecuteResultMult, RunnerResult};
+use test_tube_prov::runner::Runner;
+use test_tube_prov::BaseApp;
 
 const FEE_DENOM: &str = "nhash";
 const PROVENANCE_TEST_ADDRESS_PREFIX: &str = "tp";
 const CHAIN_ID: &str = "testnet";
-const DEFAULT_GAS_ADJUSTMENT: f64 = 1.2;
+const DEFAULT_GAS_ADJUSTMENT: f64 = 1.5;
 
 #[derive(Debug, PartialEq)]
 pub struct ProvwasmTestApp {
@@ -163,8 +163,7 @@ mod tests {
 
     use cosmwasm_std::{coins, Coin};
 
-    use test_tube::account::Account;
-    use test_tube::{Module, RunnerError};
+    use test_tube_prov::{Account, Module, RunnerError};
 
     use crate::runner::app::ProvwasmTestApp;
     use crate::wasm::Wasm;

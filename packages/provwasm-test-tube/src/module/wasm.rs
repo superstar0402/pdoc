@@ -6,18 +6,16 @@ use provwasm_std::types::cosmwasm::wasm::v1::{
 };
 use serde::{de::DeserializeOwned, Serialize};
 
-use test_tube::runner::error::{DecodeError, EncodeError, RunnerError};
-use test_tube::runner::result::{RunnerExecuteResult, RunnerResult};
-use test_tube::{
-    account::{Account, SigningAccount},
-    runner::Runner,
+use test_tube_prov::{
+    Account, DecodeError, EncodeError, Module, Runner, RunnerError, RunnerExecuteResult,
+    RunnerResult, SigningAccount,
 };
 
 pub struct Wasm<'a, R: Runner<'a>> {
     runner: &'a R,
 }
 
-impl<'a, R: Runner<'a>> super::Module<'a, R> for Wasm<'a, R> {
+impl<'a, R: Runner<'a>> Module<'a, R> for Wasm<'a, R> {
     fn new(runner: &'a R) -> Self {
         Wasm { runner }
     }

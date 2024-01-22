@@ -3,7 +3,7 @@ description = "Provwasm integration testing for Provenance"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 name = "provwasm-test-tube"
-repository = "https://github.com/provenance-io/test-tube"
+repository = "https://github.com/provenance-io/provwasm-test-tube"
 version = "0.1.0"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -17,7 +17,7 @@ provwasm-std = {version = "2.1.0", path = "../../../provwasm/packages/provwasm-s
 prost = {version = "0.11.9", default-features = false, features = ["prost-derive"]}
 serde = "1.0.144"
 serde_json = "1.0.85"
-test-tube = {version = "0.1.0", path = "../test-tube"}
+test-tube-prov = {version = "0.1.0", path = "../test-tube"}
 thiserror = "1.0.34"
 
 [build-dependencies]

@@ -5,9 +5,7 @@ use provwasm_std::types::provenance::name::v1::{
     QueryReverseLookupRequest, QueryReverseLookupResponse,
 };
 
-use test_tube::module::Module;
-use test_tube::runner::Runner;
-use test_tube::{fn_execute, fn_query};
+use test_tube_prov::{fn_execute, fn_query, Module, Runner};
 
 pub struct Name<'a, R: Runner<'a>> {
     runner: &'a R,

@@ -12,10 +12,7 @@ use provwasm_std::types::provenance::marker::v1::{
     QueryMarkerResponse, QueryParamsRequest, QueryParamsResponse, QuerySupplyRequest,
     QuerySupplyResponse,
 };
-
-use test_tube::module::Module;
-use test_tube::runner::Runner;
-use test_tube::{fn_execute, fn_query};
+use test_tube_prov::{fn_execute, fn_query, Module, Runner};
 
 pub struct Marker<'a, R: Runner<'a>> {
     runner: &'a R,

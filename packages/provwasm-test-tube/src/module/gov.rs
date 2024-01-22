@@ -2,10 +2,7 @@ use provwasm_std::types::cosmos::gov::v1beta1::{
     MsgSubmitProposal, MsgSubmitProposalResponse, MsgVote, MsgVoteResponse, QueryParamsRequest,
     QueryParamsResponse, QueryProposalRequest, QueryProposalResponse,
 };
-
-use test_tube::module::Module;
-use test_tube::runner::Runner;
-use test_tube::{fn_execute, fn_query};
+use test_tube_prov::{fn_execute, fn_query, Module, Runner};
 
 pub struct Gov<'a, R: Runner<'a>> {
     runner: &'a R,

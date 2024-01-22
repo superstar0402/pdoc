@@ -1,10 +1,7 @@
 use provwasm_std::types::provenance::hold::v1::{
     AccountHold, GetAllHoldsRequest, GetAllHoldsResponse, GetHoldsRequest, GetHoldsResponse,
 };
-
-use test_tube::module::Module;
-use test_tube::runner::Runner;
-use test_tube::{fn_execute, fn_query};
+use test_tube_prov::{fn_execute, fn_query, Module, Runner};
 
 pub struct Hold<'a, R: Runner<'a>> {
     runner: &'a R,

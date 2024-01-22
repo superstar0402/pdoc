@@ -2,9 +2,7 @@ use provwasm_std::types::provenance::msgfees::v1::{
     MsgAssessCustomMsgFeeRequest, MsgAssessCustomMsgFeeResponse, QueryParamsRequest,
     QueryParamsResponse,
 };
-use test_tube::module::Module;
-use test_tube::runner::Runner;
-use test_tube::{fn_execute, fn_query};
+use test_tube_prov::{fn_execute, fn_query, Module, Runner};
 
 pub struct MsgFees<'a, R: Runner<'a>> {
     runner: &'a R,

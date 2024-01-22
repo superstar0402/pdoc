@@ -21,9 +21,7 @@ use provwasm_std::types::provenance::exchange::v1::{
     QueryValidateManageFeesResponse, QueryValidateMarketRequest, QueryValidateMarketResponse,
 };
 
-use test_tube::module::Module;
-use test_tube::runner::Runner;
-use test_tube::{fn_execute, fn_query};
+use test_tube_prov::{fn_execute, fn_query, Module, Runner};
 
 pub struct Exchange<'a, R: Runner<'a>> {
     runner: &'a R,

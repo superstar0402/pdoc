@@ -5,9 +5,8 @@ use provwasm_std::types::provenance::attribute::v1::{
     QueryScanRequest, QueryScanResponse,
 };
 
-use test_tube::module::Module;
-use test_tube::runner::Runner;
-use test_tube::{fn_execute, fn_query};
+use test_tube_prov::module::Module;
+use test_tube_prov::{fn_execute, fn_query, Runner};
 
 pub struct Attribute<'a, R: Runner<'a>> {
     runner: &'a R,

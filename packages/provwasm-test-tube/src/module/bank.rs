@@ -3,9 +3,8 @@ use provwasm_std::types::cosmos::bank::v1beta1::{
     QuerySupplyOfResponse,
 };
 
-use test_tube::module::Module;
-use test_tube::runner::Runner;
-use test_tube::{fn_execute, fn_query};
+use test_tube_prov::module::Module;
+use test_tube_prov::{fn_execute, fn_query, Runner};
 
 pub struct Bank<'a, R: Runner<'a>> {
     runner: &'a R,

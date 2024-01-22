@@ -8,9 +8,8 @@ use provwasm_std::types::provenance::reward::v1::{
     QueryRewardDistributionsByAddressResponse, QueryRewardProgramByIdRequest,
     QueryRewardProgramByIdResponse, QueryRewardProgramsRequest, QueryRewardProgramsResponse,
 };
-use test_tube::module::Module;
-use test_tube::runner::Runner;
-use test_tube::{fn_execute, fn_query};
+
+use test_tube_prov::{fn_execute, fn_query, Module, Runner};
 
 pub struct Reward<'a, R: Runner<'a>> {
     runner: &'a R,
