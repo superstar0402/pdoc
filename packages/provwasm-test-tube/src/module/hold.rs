@@ -22,10 +22,10 @@ where
     }
 
     fn_query! {
-        pub query_get_holds ["/provenance.hold.v1.Query/GetHoldsRequest"]: GetHoldsRequest => GetHoldsResponse
+        pub query_get_holds ["/provenance.hold.v1.Query/GetHolds"]: GetHoldsRequest => GetHoldsResponse
     }
 
     fn_query! {
-        pub query_get_all_holds ["/provenance.hold.v1.Query/GetAllHoldsRequest"]: GetAllHoldsRequest => GetAllHoldsResponse
+        pub query_get_all_holds ["/provenance.hold.v1.Query/GetAllHolds"]: GetAllHoldsRequest => GetAllHoldsResponse
     }
 }
