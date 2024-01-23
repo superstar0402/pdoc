@@ -23,6 +23,6 @@ where
     }
 
     fn_query! {
-        pub query_params ["/provenance.msgfees.v1.Query/QueryParamsRequest"]: QueryParamsRequest => QueryParamsResponse
+        pub query_params ["/provenance.msgfees.v1.Query/Params"]: QueryParamsRequest => QueryParamsResponse
     }
 }
