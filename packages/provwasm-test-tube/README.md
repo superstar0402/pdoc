@@ -1,6 +1,6 @@
 # provwasm-test-tube
 
-[![osmosis-test-tube on crates.io](https://img.shields.io/crates/v/osmosis-test-tube.svg)](https://crates.io/crates/osmosis-test-tube) [![Docs](https://docs.rs/osmosis-test-tube/badge.svg)](https://docs.rs/osmosis-test-tube)
+[![provwasm-test-tube on crates.io](https://img.shields.io/crates/v/provwasm-test-tube.svg)](https://crates.io/crates/provwasm-test-tube) [![Docs](https://docs.rs/provwasm-test-tube/badge.svg)](https://docs.rs/provwasm-test-tube)
 
 CosmWasm x ProvWasm integration testing library that, unlike `cw-multi-test`, it allows you to test your ProvWasm contract against real chain's logic instead of mocks.
 

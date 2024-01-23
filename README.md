@@ -11,7 +11,7 @@ This `test-tube` repository is a fork of [`osmosis-test-tube`](https://github.co
 
 ## Usage
 
-See [the documentation](packages/)
+See [the documentation](packages/provwasm-test-tube/README.md)
 
 ## Why don't just use `cw-multi-test`?
 
