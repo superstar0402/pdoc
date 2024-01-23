@@ -1,6 +1,7 @@
 use provwasm_std::types::cosmos::gov::v1beta1::{
-    MsgSubmitProposal, MsgSubmitProposalResponse, MsgVote, MsgVoteResponse, QueryParamsRequest,
-    QueryParamsResponse, QueryProposalRequest, QueryProposalResponse,
+    MsgSubmitProposal, MsgSubmitProposalResponse, MsgVote, MsgVoteResponse, QueryDepositRequest,
+    QueryDepositResponse, QueryParamsRequest, QueryParamsResponse, QueryProposalRequest,
+    QueryProposalResponse, QueryVoteRequest, QueryVoteResponse,
 };
 use test_tube_prov::{fn_execute, fn_query, Module, Runner};
 
@@ -27,10 +28,14 @@ where
     }
 
     fn_query! {
-        pub query_proposal ["/cosmos.gov.v1beta1.Query/Proposal"]: QueryProposalRequest => QueryProposalResponse
+        pub query_deposit ["/cosmos.gov.v1beta1.Query/Deposit"]: QueryDepositRequest => QueryDepositResponse
     }
 
     fn_query! {
         pub query_params ["/cosmos.gov.v1beta1.Query/Params"]: QueryParamsRequest => QueryParamsResponse
+    }
+
+    fn_query! {
+        pub query_proposal ["/cosmos.gov.v1beta1.Query/Vote"]: QueryVoteRequest => QueryVoteResponse
     }
 }
