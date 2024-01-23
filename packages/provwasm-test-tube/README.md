@@ -306,4 +306,4 @@ where
 ```
 
 If the macro generated function is not good enough for you, you can write your own function manually.
-See [module directory](packages/provwasm-test-tube/src/module) for more inspiration.
+See [module directory](src/module) for more inspiration.
