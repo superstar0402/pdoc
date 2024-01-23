@@ -102,54 +102,54 @@ where
     }
 
     fn_query! {
-        pub query_order_fee_calc ["/provenance.exchange.v1.Query/QueryOrderFeeCalcRequest"]: QueryOrderFeeCalcRequest => QueryOrderFeeCalcResponse
+        pub query_order_fee_calc ["/provenance.exchange.v1.Query/OrderFeeCalc"]: QueryOrderFeeCalcRequest => QueryOrderFeeCalcResponse
     }
 
     fn_query! {
-        pub query_get_order ["/provenance.exchange.v1.Query/QueryGetOrderRequest"]: QueryGetOrderRequest => QueryGetOrderResponse
+        pub query_get_order ["/provenance.exchange.v1.Query/GetOrder"]: QueryGetOrderRequest => QueryGetOrderResponse
     }
 
     fn_query! {
-        pub query_get_order_by_external_id ["/provenance.exchange.v1.Query/QueryGetOrderByExternalIDRequest"]: QueryGetOrderByExternalIdRequest => QueryGetOrderByExternalIdResponse
+        pub query_get_order_by_external_id ["/provenance.exchange.v1.Query/GetOrderByExternalID"]: QueryGetOrderByExternalIdRequest => QueryGetOrderByExternalIdResponse
     }
 
     fn_query! {
-        pub query_get_market_orders ["/provenance.exchange.v1.Query/QueryGetMarketOrdersRequest"]: QueryGetMarketOrdersRequest => QueryGetMarketOrdersResponse
+        pub query_get_market_orders ["/provenance.exchange.v1.Query/GetMarketOrders"]: QueryGetMarketOrdersRequest => QueryGetMarketOrdersResponse
     }
 
     fn_query! {
-        pub query_get_owner_orders ["/provenance.exchange.v1.Query/QueryGetOwnerOrdersRequest"]: QueryGetOwnerOrdersRequest => QueryGetOwnerOrdersResponse
+        pub query_get_owner_orders ["/provenance.exchange.v1.Query/GetOwnerOrders"]: QueryGetOwnerOrdersRequest => QueryGetOwnerOrdersResponse
     }
 
     fn_query! {
-        pub query_get_asset_orders_request ["/provenance.exchange.v1.Query/QueryGetAssetOrdersRequest"]: QueryGetAssetOrdersRequest => QueryGetAssetOrdersResponse
+        pub query_get_asset_orders_request ["/provenance.exchange.v1.Query/GetAssetOrders"]: QueryGetAssetOrdersRequest => QueryGetAssetOrdersResponse
     }
 
     fn_query! {
-        pub query_get_all_orders ["/provenance.exchange.v1.Query/QueryGetAllOrdersRequest"]: QueryGetAllOrdersRequest => QueryGetAllOrdersResponse
+        pub query_get_all_orders ["/provenance.exchange.v1.Query/GetAllOrders"]: QueryGetAllOrdersRequest => QueryGetAllOrdersResponse
     }
 
     fn_query! {
-        pub query_get_market ["/provenance.exchange.v1.Query/QueryGetMarketRequest"]: QueryGetMarketRequest => QueryGetMarketResponse
+        pub query_get_market ["/provenance.exchange.v1.Query/GetMarket"]: QueryGetMarketRequest => QueryGetMarketResponse
     }
 
     fn_query! {
-        pub query_get_all_markets ["/provenance.exchange.v1.Query/QueryGetAllMarketsRequest"]: QueryGetAllMarketsRequest => QueryGetAllMarketsResponse
+        pub query_get_all_markets ["/provenance.exchange.v1.Query/GetAllMarkets"]: QueryGetAllMarketsRequest => QueryGetAllMarketsResponse
     }
 
     fn_query! {
-        pub query_params ["/provenance.exchange.v1.Query/QueryParamsRequest"]: QueryParamsRequest => QueryParamsResponse
+        pub query_params ["/provenance.exchange.v1.Query/Params"]: QueryParamsRequest => QueryParamsResponse
     }
 
     fn_query! {
-        pub query_validate_create_market ["/provenance.exchange.v1.Query/QueryValidateCreateMarketRequest"]: QueryValidateCreateMarketRequest => QueryValidateCreateMarketResponse
+        pub query_validate_create_market ["/provenance.exchange.v1.Query/ValidateCreateMarket"]: QueryValidateCreateMarketRequest => QueryValidateCreateMarketResponse
     }
 
     fn_query! {
-        pub query_validate_market ["/provenance.exchange.v1.Query/QueryValidateMarketRequest"]: QueryValidateMarketRequest => QueryValidateMarketResponse
+        pub query_validate_market ["/provenance.exchange.v1.Query/ValidateMarket"]: QueryValidateMarketRequest => QueryValidateMarketResponse
     }
 
     fn_query! {
-        pub query_validate_manage_fees ["/provenance.exchange.v1.Query/QueryValidateManageFeesRequest"]: QueryValidateManageFeesRequest => QueryValidateManageFeesResponse
+        pub query_validate_manage_fees ["/provenance.exchange.v1.Query/ValidateManageFees"]: QueryValidateManageFeesRequest => QueryValidateManageFeesResponse
     }
 }
