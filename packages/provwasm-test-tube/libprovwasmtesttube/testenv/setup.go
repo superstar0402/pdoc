@@ -11,6 +11,7 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
+	nametypes "github.com/provenance-io/provenance/x/name/types"
 	"github.com/spf13/pflag"
 	"github.com/tendermint/tendermint/libs/log"
 	tmtypes "github.com/tendermint/tendermint/types"
@@ -112,6 +113,13 @@ func SetupProvenanceApp(nodeHome string) (*app.App, []byte) {
 	authGenesis := authtypes.NewGenesisState(authtypes.DefaultParams(), genAccs)
 	genesisState[authtypes.ModuleName] = appInstance.AppCodec().MustMarshalJSON(authGenesis)
 
+	// set name records, TLD is `pb` with the SLD `sc` to store test contracts under
+	rootName := nametypes.NewNameRecord("pb", sdk.AccAddress(validator.Address), false)
+	scName := nametypes.NewNameRecord("sc.pb", sdk.AccAddress(validator.Address), false)
+	nameRecords := nametypes.NameRecords{rootName, scName}
+	nameGenesis := nametypes.NewGenesisState(nametypes.DefaultParams(), nameRecords)
+	genesisState[nametypes.ModuleName] = appInstance.AppCodec().MustMarshalJSON(nameGenesis)
+
 	validators := make([]stakingtypes.Validator, 0, len(valSet.Validators))
 	delegations := make([]stakingtypes.Delegation, 0, len(valSet.Validators))
 
@@ -171,13 +179,13 @@ func SetupProvenanceApp(nodeHome string) (*app.App, []byte) {
 			Validators: []abci.ValidatorUpdate{},
 			ConsensusParams: &abci.ConsensusParams{
 				Block: &abci.BlockParams{
-					MaxBytes: 200000,
-					MaxGas:   60_000_000,
+					MaxBytes: 22020096,
+					MaxGas:   -1,
 				},
 				Evidence: &tmproto.EvidenceParams{
-					MaxAgeNumBlocks: 302400,
-					MaxAgeDuration:  504 * time.Hour, // 3 weeks is the max duration
-					MaxBytes:        10000,
+					MaxAgeNumBlocks: 100000,
+					MaxAgeDuration:  172800000000000, // 3 weeks is the max duration
+					MaxBytes:        1048576,
 				},
 				Validator: &tmproto.ValidatorParams{
 					PubKeyTypes: []string{
