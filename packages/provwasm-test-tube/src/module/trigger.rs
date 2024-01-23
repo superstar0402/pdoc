@@ -29,10 +29,10 @@ where
     }
 
     fn_query! {
-        pub query_trigger_by_id ["/provenance.trigger.v1.Query/QueryTriggerByIDRequest"]: QueryTriggerByIdRequest => QueryTriggerByIdResponse
+        pub query_trigger_by_id ["/provenance.trigger.v1.Query/TriggerByID"]: QueryTriggerByIdRequest => QueryTriggerByIdResponse
     }
 
     fn_query! {
-        pub query_triggers ["/provenance.trigger.v1.Query/QueryTriggersRequest"]: QueryTriggersRequest => QueryTriggersResponse
+        pub query_triggers ["/provenance.trigger.v1.Query/Triggers"]: QueryTriggersRequest => QueryTriggersResponse
     }
 }
