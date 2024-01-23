@@ -130,58 +130,58 @@ where
     }
 
     fn_query! {
-        pub query_params ["/provenance.metadata.v1.Query/QueryParamsRequest"]: QueryParamsRequest => QueryParamsResponse
+        pub query_params ["/provenance.metadata.v1.Query/Params"]: QueryParamsRequest => QueryParamsResponse
     }
 
     fn_query! {
-        pub query_scope ["/provenance.metadata.v1.Query/ScopeRequest"]: ScopeRequest => ScopeResponse
+        pub query_scope ["/provenance.metadata.v1.Query/Scope"]: ScopeRequest => ScopeResponse
     }
 
     fn_query! {
-        pub query_sessions ["/provenance.metadata.v1.Query/SessionsRequest"]: SessionsRequest => SessionsResponse
+        pub query_sessions ["/provenance.metadata.v1.Query/Sessions"]: SessionsRequest => SessionsResponse
     }
 
     fn_query! {
-        pub query_records ["/provenance.metadata.v1.Query/RecordsRequest"]: RecordsRequest => RecordsResponse
+        pub query_records ["/provenance.metadata.v1.Query/Records"]: RecordsRequest => RecordsResponse
     }
 
     fn_query! {
-        pub query_ownership ["/provenance.metadata.v1.Query/OwnershipRequest"]: OwnershipRequest => OwnershipResponse
+        pub query_ownership ["/provenance.metadata.v1.Query/Ownership"]: OwnershipRequest => OwnershipResponse
     }
 
     fn_query! {
-        pub query_value_ownership ["/provenance.metadata.v1.Query/ValueOwnershipRequest"]: ValueOwnershipRequest => ValueOwnershipResponse
+        pub query_value_ownership ["/provenance.metadata.v1.Query/ValueOwnership"]: ValueOwnershipRequest => ValueOwnershipResponse
     }
 
     fn_query! {
-        pub query_scope_specification["/provenance.metadata.v1.Query/ScopeSpecificationRequest"]: ScopeSpecificationRequest => ScopeSpecificationResponse
+        pub query_scope_specification["/provenance.metadata.v1.Query/ScopeSpecification"]: ScopeSpecificationRequest => ScopeSpecificationResponse
     }
 
     fn_query! {
-        pub query_contract_specification ["/provenance.metadata.v1.Query/ContractSpecificationRequest"]: ContractSpecificationRequest => ContractSpecificationResponse
+        pub query_contract_specification ["/provenance.metadata.v1.Query/ContractSpecification"]: ContractSpecificationRequest => ContractSpecificationResponse
     }
 
     fn_query! {
-        pub query_record_specs_for_contract_spec ["/provenance.metadata.v1.Query/RecordSpecificationsForContractSpecificationRequest"]: RecordSpecificationsForContractSpecificationRequest => RecordSpecificationsForContractSpecificationResponse
+        pub query_record_specs_for_contract_spec ["/provenance.metadata.v1.Query/RecordSpecificationsForContractSpecification"]: RecordSpecificationsForContractSpecificationRequest => RecordSpecificationsForContractSpecificationResponse
     }
 
     fn_query! {
-        pub query_record_specification ["/provenance.metadata.v1.Query/RecordSpecificationRequest"]: RecordSpecificationRequest => RecordSpecificationResponse
+        pub query_record_specification ["/provenance.metadata.v1.Query/RecordSpecification"]: RecordSpecificationRequest => RecordSpecificationResponse
     }
 
     fn_query! {
-        pub query_os_locator_params ["/provenance.metadata.v1.Query/OSLocatorParamsRequest"]: OsLocatorParamsRequest => OsLocatorParamsResponse
+        pub query_os_locator_params ["/provenance.metadata.v1.Query/OSLocatorParams"]: OsLocatorParamsRequest => OsLocatorParamsResponse
     }
 
     fn_query! {
-        pub query_os_locator ["/provenance.metadata.v1.Query/OSLocatorRequest"]: OsLocatorRequest => OsLocatorResponse
+        pub query_os_locator ["/provenance.metadata.v1.Query/OSLocator"]: OsLocatorRequest => OsLocatorResponse
     }
 
     fn_query! {
-        pub query_os_locators ["/provenance.metadata.v1.Query/OSLocatorsByURIRequest"]: OsLocatorsByUriRequest => OsLocatorsByUriResponse
+        pub query_os_locators ["/provenance.metadata.v1.Query/OSLocatorsByURI"]: OsLocatorsByUriRequest => OsLocatorsByUriResponse
     }
 
     fn_query! {
-        pub query_os_locators_by_scope ["/provenance.metadata.v1.Query/OSLocatorsByScopeRequest"]: OsLocatorsByScopeRequest => OsLocatorsByScopeResponse
+        pub query_os_locators_by_scope ["/provenance.metadata.v1.Query/OSLocatorsByScope"]: OsLocatorsByScopeRequest => OsLocatorsByScopeResponse
     }
 }
