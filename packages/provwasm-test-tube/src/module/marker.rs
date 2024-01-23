@@ -89,30 +89,30 @@ where
     }
 
     fn_query! {
-        pub query_params ["/provenance.marker.v1.Query/QueryParamsRequest"]: QueryParamsRequest => QueryParamsResponse
+        pub query_params ["/provenance.marker.v1.Query/Params"]: QueryParamsRequest => QueryParamsResponse
     }
 
     fn_query! {
-        pub query_marker ["/provenance.marker.v1.Query/QueryMarkerRequest"]: QueryMarkerRequest => QueryMarkerResponse
+        pub query_marker ["/provenance.marker.v1.Query/Marker"]: QueryMarkerRequest => QueryMarkerResponse
     }
 
     fn_query! {
-        pub query_holding ["/provenance.marker.v1.Query/QueryHoldingRequest"]: QueryHoldingRequest => QueryHoldingResponse
+        pub query_holding ["/provenance.marker.v1.Query/Holding"]: QueryHoldingRequest => QueryHoldingResponse
     }
 
     fn_query! {
-        pub query_supply ["/provenance.marker.v1.Query/QuerySupplyRequest"]: QuerySupplyRequest => QuerySupplyResponse
+        pub query_supply ["/provenance.marker.v1.Query/Supply"]: QuerySupplyRequest => QuerySupplyResponse
     }
 
     fn_query! {
-        pub query_escrow ["/provenance.marker.v1.Query/QueryEscrowRequest"]: QueryEscrowRequest => QueryEscrowResponse
+        pub query_escrow ["/provenance.marker.v1.Query/Escrow"]: QueryEscrowRequest => QueryEscrowResponse
     }
 
     fn_query! {
-        pub query_access ["/provenance.marker.v1.Query/QueryAccessRequest"]: QueryAccessRequest => QueryAccessResponse
+        pub query_access ["/provenance.marker.v1.Query/Access"]: QueryAccessRequest => QueryAccessResponse
     }
 
     fn_query! {
-        pub query_denom_metadata ["/provenance.marker.v1.Query/QueryDenomMetadataRequest"]: QueryDenomMetadataRequest => QueryDenomMetadataResponse
+        pub query_denom_metadata ["/provenance.marker.v1.Query/DenomMetadata"]: QueryDenomMetadataRequest => QueryDenomMetadataResponse
     }
 }
