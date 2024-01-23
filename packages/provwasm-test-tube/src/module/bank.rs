@@ -1,5 +1,6 @@
 use provwasm_std::types::cosmos::bank::v1beta1::{
-    MsgSend, MsgSendResponse, QueryBalanceRequest, QueryBalanceResponse, QuerySupplyOfRequest,
+    MsgSend, MsgSendResponse, QueryBalanceRequest, QueryBalanceResponse, QueryDenomMetadataRequest,
+    QueryDenomMetadataResponse, QueryParamsRequest, QueryParamsResponse, QuerySupplyOfRequest,
     QuerySupplyOfResponse,
 };
 
@@ -26,6 +27,14 @@ where
 
     fn_query! {
         pub query_balance ["/cosmos.bank.v1beta1.Query/Balance"]: QueryBalanceRequest => QueryBalanceResponse
+    }
+
+    fn_query! {
+        pub query_denom_metadata ["/cosmos.bank.v1beta1.Query/DenomMetadata"]: QueryDenomMetadataRequest => QueryDenomMetadataResponse
+    }
+
+    fn_query! {
+        pub query_params ["/cosmos.bank.v1beta1.Query/Params"]: QueryParamsRequest => QueryParamsResponse
     }
 
     fn_query! {
