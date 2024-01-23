@@ -42,22 +42,22 @@ where
     }
 
     fn_query! {
-        pub query_ ["/provenance.reward.v1.Query/QueryRewardProgramByIDRequest"]: QueryRewardProgramByIdRequest => QueryRewardProgramByIdResponse
+        pub query_ ["/provenance.reward.v1.Query/RewardProgramByID"]: QueryRewardProgramByIdRequest => QueryRewardProgramByIdResponse
     }
 
     fn_query! {
-        pub query_reward_programs ["/provenance.reward.v1.Query/QueryRewardProgramsRequest"]: QueryRewardProgramsRequest => QueryRewardProgramsResponse
+        pub query_reward_programs ["/provenance.reward.v1.Query/RewardPrograms"]: QueryRewardProgramsRequest => QueryRewardProgramsResponse
     }
 
     fn_query! {
-        pub query_claim_period_reward_distributions ["/provenance.reward.v1.Query/QueryClaimPeriodRewardDistributionsRequest"]: QueryClaimPeriodRewardDistributionsRequest => QueryClaimPeriodRewardDistributionsResponse
+        pub query_claim_period_reward_distributions ["/provenance.reward.v1.Query/ClaimPeriodRewardDistributions"]: QueryClaimPeriodRewardDistributionsRequest => QueryClaimPeriodRewardDistributionsResponse
     }
 
     fn_query! {
-        pub query_claim_period_reward_distributions_by_id ["/provenance.reward.v1.Query/QueryClaimPeriodRewardDistributionsByIDRequest"]: QueryClaimPeriodRewardDistributionsByIdRequest => QueryClaimPeriodRewardDistributionsByIdResponse
+        pub query_claim_period_reward_distributions_by_id ["/provenance.reward.v1.Query/ClaimPeriodRewardDistributionsByID"]: QueryClaimPeriodRewardDistributionsByIdRequest => QueryClaimPeriodRewardDistributionsByIdResponse
     }
 
     fn_query! {
-        pub query_reward_distributions_by_address ["/provenance.reward.v1.Query/QueryRewardDistributionsByAddressRequest"]: QueryRewardDistributionsByAddressRequest => QueryRewardDistributionsByAddressResponse
+        pub query_reward_distributions_by_address ["/provenance.reward.v1.Query/RewardDistributionsByAddress"]: QueryRewardDistributionsByAddressRequest => QueryRewardDistributionsByAddressResponse
     }
 }
