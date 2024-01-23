@@ -38,14 +38,14 @@ where
     }
 
     fn_query! {
-        pub query_params ["/provenance.name.v1.Query/QueryParamsRequest"]: QueryParamsRequest => QueryParamsResponse
+        pub query_params ["/provenance.name.v1.Query/Params"]: QueryParamsRequest => QueryParamsResponse
     }
 
     fn_query! {
-        pub query_resolve ["/provenance.name.v1.Query/QueryResolveRequest"]: QueryResolveRequest => QueryResolveResponse
+        pub query_resolve ["/provenance.name.v1.Query/Resolve"]: QueryResolveRequest => QueryResolveResponse
     }
 
     fn_query! {
-        pub query_reverse_lookup ["/provenance.name.v1.Query/QueryReverseLookupRequest"]: QueryReverseLookupRequest => QueryReverseLookupResponse
+        pub query_reverse_lookup ["/provenance.name.v1.Query/ReverseLookup"]: QueryReverseLookupRequest => QueryReverseLookupResponse
     }
 }
