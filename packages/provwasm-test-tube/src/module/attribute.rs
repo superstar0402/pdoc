@@ -35,18 +35,18 @@ where
     }
 
     fn_query! {
-        pub query_attribute ["/provenance.attribute.v1.Query/QueryAttributeRequest"]: QueryAttributeRequest => QueryAttributeResponse
+        pub query_attribute ["/provenance.attribute.v1.Query/Params"]: QueryAttributeRequest => QueryAttributeResponse
     }
 
     fn_query! {
-        pub query_attributes ["/provenance.attribute.v1.Query/QueryAttributesRequest"]: QueryAttributesRequest => QueryAttributesResponse
+        pub query_attributes ["/provenance.attribute.v1.Query/Attribute"]: QueryAttributesRequest => QueryAttributesResponse
     }
 
     fn_query! {
-        pub query_params ["/provenance.attribute.v1.Query/QueryParamsRequest"]: QueryParamsRequest => QueryParamsResponse
+        pub query_params ["/provenance.attribute.v1.Query/Attributes"]: QueryParamsRequest => QueryParamsResponse
     }
 
     fn_query! {
-        pub query_scan ["/provenance.attribute.v1.Query/QueryScanRequest"]: QueryScanRequest => QueryScanResponse
+        pub query_scan ["/provenance.attribute.v1.Query/Scan"]: QueryScanRequest => QueryScanResponse
     }
 }
