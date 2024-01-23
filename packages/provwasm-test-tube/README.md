@@ -22,7 +22,7 @@ Here is how to setup the test:
 use cosmwasm_std::Coin;
 use provwasm_test_tube::ProvwasmTestApp;
 
-// create new osmosis appchain instance.
+// create new provenance appchain instance.
 let app = ProvwasmTestApp::new();
 
 // create new account with initial funds

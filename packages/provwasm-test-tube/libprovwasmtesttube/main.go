@@ -35,8 +35,6 @@ import (
 	// cosmwasm-testing
 	"github.com/provenance-io/test-tube/provwasm-test-tube/result"
 	"github.com/provenance-io/test-tube/provwasm-test-tube/testenv"
-	// osmosis
-	// lockuptypes "github.com/osmosis-labs/osmosis/v16/x/lockup/types"
 )
 
 var (

@@ -36,18 +36,6 @@ import (
 	// provenance
 	"github.com/provenance-io/provenance/app"
 	"github.com/provenance-io/provenance/cmd/provenanced/config"
-	//concentrateliquiditytypes "github.com/osmosis-labs/osmosis/v20/x/concentrated-liquidity/types"
-	//gammtypes "github.com/osmosis-labs/osmosis/v20/x/gamm/types"
-	//ibcratelimittypes "github.com/osmosis-labs/osmosis/v20/x/ibc-rate-limit/types"
-	//incentivetypes "github.com/osmosis-labs/osmosis/v20/x/incentives/types"
-	//lockuptypes "github.com/osmosis-labs/osmosis/v20/x/lockup/types"
-	//minttypes "github.com/osmosis-labs/osmosis/v20/x/mint/types"
-	//poolincentivetypes "github.com/osmosis-labs/osmosis/v20/x/pool-incentives/types"
-	//poolmanagertypes "github.com/osmosis-labs/osmosis/v20/x/poolmanager/types"
-	//protorevtypes "github.com/osmosis-labs/osmosis/v20/x/protorev/types"
-	//superfluidtypes "github.com/osmosis-labs/osmosis/v20/x/superfluid/types"
-	//tokenfactorytypes "github.com/osmosis-labs/osmosis/v20/x/tokenfactory/types"
-	//twaptypes "github.com/osmosis-labs/osmosis/v20/x/twap/types"
 )
 
 type TestEnv struct {
