@@ -4,6 +4,7 @@ import (
 	"cosmossdk.io/math"
 	"encoding/json"
 	"fmt"
+	dbm "github.com/cometbft/cometbft-db"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	cryptocodec "github.com/cosmos/cosmos-sdk/crypto/codec"
 	"github.com/cosmos/cosmos-sdk/testutil/mock"
@@ -15,7 +16,6 @@ import (
 	"github.com/spf13/pflag"
 	"github.com/tendermint/tendermint/libs/log"
 	tmtypes "github.com/tendermint/tendermint/types"
-	dbm "github.com/tendermint/tm-db"
 	"time"
 
 	// helpers
