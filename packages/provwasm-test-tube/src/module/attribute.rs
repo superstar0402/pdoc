@@ -1,8 +1,8 @@
 use provwasm_std::types::provenance::attribute::v1::{
-    MsgAddAttributeRequest, MsgAddAttributeResponse, MsgDeleteDistinctAttributeRequest,
-    MsgUpdateAttributeRequest, QueryAttributeRequest, QueryAttributeResponse,
-    QueryAttributesRequest, QueryAttributesResponse, QueryParamsRequest, QueryParamsResponse,
-    QueryScanRequest, QueryScanResponse,
+    MsgAddAttributeRequest, MsgAddAttributeResponse, MsgDeleteAttributeRequest,
+    MsgDeleteAttributeResponse, MsgDeleteDistinctAttributeRequest, MsgUpdateAttributeRequest,
+    QueryAttributeRequest, QueryAttributeResponse, QueryAttributesRequest, QueryAttributesResponse,
+    QueryParamsRequest, QueryParamsResponse, QueryScanRequest, QueryScanResponse,
 };
 
 use test_tube_prov::module::Module;
@@ -28,6 +28,10 @@ where
 
     fn_execute! {
         pub update_attribute: MsgUpdateAttributeRequest["/provenance.attribute.v1.MsgUpdateAttributeRequest"] => MsgAddAttributeResponse
+    }
+
+    fn_execute! {
+        pub delete_attribute: MsgDeleteAttributeRequest["/provenance.attribute.v1.MsgDeleteAttributeRequest"] => MsgDeleteAttributeResponse
     }
 
     fn_execute! {
