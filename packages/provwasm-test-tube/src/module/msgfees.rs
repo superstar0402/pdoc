@@ -1,6 +1,7 @@
 use provwasm_std::types::provenance::msgfees::v1::{
-    MsgAssessCustomMsgFeeRequest, MsgAssessCustomMsgFeeResponse, QueryParamsRequest,
-    QueryParamsResponse,
+    CalculateTxFeesRequest, CalculateTxFeesResponse, MsgAssessCustomMsgFeeRequest,
+    MsgAssessCustomMsgFeeResponse, QueryAllMsgFeesRequest, QueryAllMsgFeesResponse,
+    QueryParamsRequest, QueryParamsResponse,
 };
 use test_tube_prov::{fn_execute, fn_query, Module, Runner};
 
@@ -24,5 +25,13 @@ where
 
     fn_query! {
         pub query_params ["/provenance.msgfees.v1.Query/Params"]: QueryParamsRequest => QueryParamsResponse
+    }
+
+    fn_query! {
+        pub query_all_msg_fees ["/provenance.msgfees.v1.Query/QueryAllMsgFees"]: QueryAllMsgFeesRequest => QueryAllMsgFeesResponse
+    }
+
+    fn_query! {
+        pub query_calculate_tx_fees ["/provenance.msgfees.v1.Query/CalculateTxFees"]: CalculateTxFeesRequest => CalculateTxFeesResponse
     }
 }
