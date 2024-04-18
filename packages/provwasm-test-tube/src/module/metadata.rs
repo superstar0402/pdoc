@@ -178,7 +178,7 @@ where
     }
 
     fn_query! {
-        pub query_os_locators ["/provenance.metadata.v1.Query/OSLocatorsByURI"]: OsLocatorsByUriRequest => OsLocatorsByUriResponse
+        pub query_os_locators_by_uri ["/provenance.metadata.v1.Query/OSLocatorsByURI"]: OsLocatorsByUriRequest => OsLocatorsByUriResponse
     }
 
     fn_query! {
