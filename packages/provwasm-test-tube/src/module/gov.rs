@@ -1,9 +1,10 @@
+use test_tube_prov::{fn_execute, fn_query, Module, Runner};
+
 use provwasm_std::types::cosmos::gov::v1beta1::{
     MsgSubmitProposal, MsgSubmitProposalResponse, MsgVote, MsgVoteResponse, QueryDepositRequest,
-    QueryDepositResponse, QueryParamsRequest, QueryParamsResponse, QueryProposalRequest,
-    QueryProposalResponse, QueryVoteRequest, QueryVoteResponse,
+    QueryDepositResponse, QueryParamsRequest, QueryParamsResponse, QueryVoteRequest,
+    QueryVoteResponse,
 };
-use test_tube_prov::{fn_execute, fn_query, Module, Runner};
 
 pub struct Gov<'a, R: Runner<'a>> {
     runner: &'a R,
@@ -28,7 +29,7 @@ where
     }
 
     fn_query! {
-        pub query_deposit ["/cosmos.gov.v1beta1.Query/Deposit"]: QueryDepositRequest => QueryDepositResponse
+        pub query_vote ["/cosmos.gov.v1beta1.Query/Vote"]: QueryVoteRequest => QueryVoteResponse
     }
 
     fn_query! {
@@ -36,6 +37,6 @@ where
     }
 
     fn_query! {
-        pub query_proposal ["/cosmos.gov.v1beta1.Query/Vote"]: QueryVoteRequest => QueryVoteResponse
+        pub query_deposit ["/cosmos.gov.v1beta1.Query/Deposit"]: QueryDepositRequest => QueryDepositResponse
     }
 }
