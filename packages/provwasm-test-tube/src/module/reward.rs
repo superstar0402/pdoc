@@ -42,7 +42,7 @@ where
     }
 
     fn_query! {
-        pub query_ ["/provenance.reward.v1.Query/RewardProgramByID"]: QueryRewardProgramByIdRequest => QueryRewardProgramByIdResponse
+        pub query_reward_program_by_id ["/provenance.reward.v1.Query/RewardProgramByID"]: QueryRewardProgramByIdRequest => QueryRewardProgramByIdResponse
     }
 
     fn_query! {
