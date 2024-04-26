@@ -1,10 +1,12 @@
 [package]
-description = "library for building integration testing environments for cosmos-sdk chains in Rust"
-edition = "2021"
-license = "MIT OR Apache-2.0"
 name = "test-tube-prov"
-repository = "https://github.com/provenance-io/provwasm-test-tube"
 version = "0.1.0"
+repository = "https://github.com/provenance-io/provwasm-test-tube"
+edition = "2021"
+license = "Apache-2.0"
+description = "library for building smart contract integration testing environments for Provenance Blockchain in Rust"
+keywords = ["provenance", "blockchain", "smart-contracts", "defi", "finance"]
+categories = ["api-bindings", "cryptography::cryptocurrencies", "wasm"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
