@@ -13,15 +13,15 @@ categories = ["api-bindings", "cryptography::cryptocurrencies", "wasm"]
 exclude = ["provenance", "test_artifacts"]
 
 [dependencies]
-base64 = "0.21.5"
+base64 = "0.22.0"
 cosmrs = { version = "0.14.0", features = ["cosmwasm"] }
-cosmwasm-std = "1.2.5"
+cosmwasm-std = "1.5"
 provwasm-std = { version = "2.2.0" }
 prost = { version = "0.11.9", default-features = false, features = ["prost-derive"] }
-serde = "1.0.144"
-serde_json = "1.0.85"
+serde = "1.0.197"
+serde_json = "1.0.115"
 test-tube-prov = { version = "0.1.0", path = "../test-tube" }
-thiserror = "1.0.34"
+thiserror = "1.0.58"
 
 [build-dependencies]
 bindgen = "0.69.1"
@@ -29,3 +29,4 @@ bindgen = "0.69.1"
 [dev-dependencies]
 cw1-whitelist = "1.1.1"
 rayon = "1.5.3"
+marker = { version = "2.2.0", git = "https://github.com/provenance-io/provwasm" }

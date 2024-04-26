@@ -1,11 +1,14 @@
-use crate::runner::error::{DecodeError, RunnerError};
+use std::ffi::CString;
+use std::str::Utf8Error;
+
+use base64::prelude::*;
 use cosmrs::proto::cosmos::base::abci::v1beta1::{GasInfo, TxMsgData};
 use cosmrs::proto::tendermint::abci::ResponseDeliverTx;
 use cosmrs::rpc::endpoint::broadcast::tx_commit::Response as TxCommitResponse;
 use cosmwasm_std::{Attribute, Event};
 use prost::Message;
-use std::ffi::CString;
-use std::str::Utf8Error;
+
+use crate::runner::error::{DecodeError, RunnerError};
 
 pub type RunnerResult<T> = Result<T, RunnerError>;
 pub type RunnerExecuteResult<R> = Result<ExecuteResponse<R>, RunnerError>;
@@ -34,9 +37,7 @@ where
 
         let msg_data = &tx_msg_data
             .msg_responses
-            // since this tx contains exactly 1 msg
-            // when getting none of them, that means error
-            .get(0)
+            .first()
             .ok_or(RunnerError::ExecuteError { msg: res.log })?;
         let data = R::decode(msg_data.value.as_slice()).map_err(DecodeError::ProtoDecodeError)?;
 
@@ -159,7 +160,7 @@ impl RawResult {
 
         let c_string = unsafe { CString::from_raw(ptr) };
         let base64_bytes = c_string.to_bytes();
-        let bytes = base64::decode(base64_bytes).unwrap();
+        let bytes = BASE64_STANDARD.decode(base64_bytes).unwrap();
         let code = bytes[0];
         let content = &bytes[1..];
 
