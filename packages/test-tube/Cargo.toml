@@ -4,6 +4,7 @@ version = "0.1.0"
 repository = "https://github.com/provenance-io/provwasm-test-tube"
 edition = "2021"
 license = "Apache-2.0"
+authors = ["Ken Talley <4344285+kwtalley@users.noreply.github.com"]
 description = "library for building smart contract integration testing environments for Provenance Blockchain in Rust"
 keywords = ["provenance", "blockchain", "smart-contracts", "defi", "finance"]
 categories = ["api-bindings", "cryptography::cryptocurrencies", "wasm"]
