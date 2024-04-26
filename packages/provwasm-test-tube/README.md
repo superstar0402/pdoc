@@ -7,11 +7,17 @@ contract against real chain's logic instead of mocks.
 
 ## Table of Contents
 
+- [Compatibility](#compatibility)
 - [Getting Started](#getting-started)
 - [Debugging](#debugging)
 - [Using Module Wrapper](#using-module-wrapper)
 - [Custom Module Wrapper](#custom-module-wrapper)
-- [Versioning](#versioning)
+
+## Compatibility
+
+| provwasm-test-tube | provwasm | provenance |
+|--------------------|----------|------------|
+| 0.1.0              | 2.2.0    | 1.18.0     |
 
 ## Getting Started
 
@@ -180,7 +186,6 @@ fn create_and_withdraw() -> Result<(), RunnerError> {
 
     Ok(())
 }
-
 ```
 
 ## Debugging
@@ -212,12 +217,11 @@ use provwasm_std::types::provenance::marker::v1::{
 fn create_and_withdraw() -> Result<(), RunnerError> {
     let app = ProvwasmTestApp::default();
     let accs = app
-        .init_accounts(&[Coin::new(100_000_000_000_000, "nhash")], 1)
-        .unwrap();
+        .init_accounts(&[Coin::new(100_000_000_000_000, "nhash")], 1)?;
     let admin = &accs[0];
 
     let marker_module = provwasm_test_tube::module::marker::Marker::new(&app);
-    let add_response = marker_module.add_marker(
+    marker_module.add_marker(
         MsgAddMarkerRequest {
             amount: Some(
                 Coin {
@@ -262,10 +266,9 @@ fn create_and_withdraw() -> Result<(), RunnerError> {
             .denom,
         "spy"
     );
-    
+
     Ok(())
 }
-
 ```
 
 ## Custom Module Wrapper
