@@ -21,7 +21,7 @@ test-tube-prov = { version = "0.1.0", path = "../test-tube" }
 thiserror = "1.0.34"
 
 [build-dependencies]
-bindgen = "0.68.1"
+bindgen = "0.69.1"
 
 [dev-dependencies]
 cw1-whitelist = "1.1.1"

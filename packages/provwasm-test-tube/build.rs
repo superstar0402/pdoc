@@ -38,9 +38,15 @@ fn main() {
         build_libprovwasmtesttube(prebuilt_lib_dir.join(lib_filename));
     }
 
+    // We only build if the file doesn't exist OR if the ENV variable is not set
     let out_dir_lib_path = out_dir.join(lib_filename);
-    println!("out_dir_lib_path: {:?}", out_dir_lib_path);
-    build_libprovwasmtesttube(out_dir_lib_path);
+
+    // TODO: more robust check for rebuilding lib, this can cause confusion in dev mode
+    if std::fs::metadata(&out_dir_lib_path).is_err()
+        || env::var("OSMOSIS_TUBE_DEV") == Ok("1".to_string())
+    {
+        build_libprovwasmtesttube(out_dir_lib_path);
+    }
 
     // copy built lib to target dir if debug build
     if env::var("PROFILE").unwrap() == "debug" {
@@ -80,7 +86,7 @@ fn main() {
         .header(header.to_str().unwrap())
         // Tell cargo to invalidate the built crate whenever any of the
         // included header files changed.
-        .parse_callbacks(Box::new(bindgen::CargoCallbacks))
+        .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
         // Finish the builder and generate the bindings.
         .generate()
         // Unwrap the Result and panic on failure.
@@ -99,6 +105,20 @@ fn build_libprovwasmtesttube(out: PathBuf) {
         return;
     }
     let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+
+    let tidy_status = Command::new("go")
+        .current_dir(manifest_dir.join("libprovwasmtesttube"))
+        .arg("mod")
+        .arg("tidy")
+        .spawn()
+        .unwrap()
+        .wait()
+        .unwrap();
+
+    if !tidy_status.success() {
+        panic!("failed to run 'go mod tidy'");
+    }
+
     let exit_status = Command::new("go")
         .current_dir(manifest_dir.join("libprovwasmtesttube"))
         .arg("build")
