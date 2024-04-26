@@ -1,5 +1,8 @@
 #![doc = include_str!("../README.md")]
 
+mod module;
+mod runner;
+
 pub use cosmrs;
 pub use provwasm_std;
 
@@ -10,6 +13,3 @@ pub use test_tube_prov::runner::error::{DecodeError, EncodeError, RunnerError};
 pub use test_tube_prov::runner::result::{ExecuteResponse, RunnerExecuteResult, RunnerResult};
 pub use test_tube_prov::runner::Runner;
 pub use test_tube_prov::{fn_execute, fn_query};
-
-pub mod module;
-pub mod runner;

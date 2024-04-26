@@ -28,22 +28,21 @@ Here is how to setup the test:
 
 ```rust
 use cosmwasm_std::Coin;
-use provwasm_test_tube::ProvwasmTestApp;
+use provwasm_test_tube::{ProvwasmTestApp, RunnerError};
 
-// create new provenance appchain instance.
-let app = ProvwasmTestApp::new();
+#[test]
+fn test() -> Result<(), RunnerError> {
+    // create new provenance appchain instance.
+    let app = ProvwasmTestApp::new();
 
-// create new account with initial funds
-let accs = app
-    .init_accounts(
-        &[
-            Coin::new(1_000_000_000_000, "nhash"),
-        ],
-        2,
-    )?;
+    // create new account with initial funds
+    let accs = app.init_accounts(&[Coin::new(1_000_000_000_000, "nhash")], 2)?;
 
-let admin = &accs[0];
-let new_admin = &accs[1];
+    let admin = &accs[0];
+    let new_admin = &accs[1];
+
+    Ok(())
+}
 ```
 
 Now we have the appchain instance and accounts that have some initial balances and can interact with the appchain.
@@ -55,13 +54,15 @@ If you want to create just one account, you can use `init_account` instead.
 
 ```rust
 use cosmwasm_std::Coin;
-use provwasm_test_tube::ProvwasmTestApp;
+use provwasm_test_tube::{ProvwasmTestApp, RunnerError};
 
-let app = ProvwasmTestApp::new();
+fn test() -> Result<(), RunnerError> {
+    let app = ProvwasmTestApp::new();
 
-let account = app.init_account(&[
-    Coin::new(1_000_000_000_000, "nhash"),
-])?;
+    let account = app.init_account(&[Coin::new(1_000_000_000_000, "nhash")])?;
+
+    Ok(())
+}
 ```
 
 Now if we want to test a provwasm contract, we need to
@@ -73,21 +74,22 @@ Now if we want to test a provwasm contract, we need to
 Then we can start interacting with our contract
 
 ```rust
-use cosmwasm_std::{Coin, Uint128};  
-use provwasm_test_tube::wasm::Wasm;  
-use provwasm_test_tube::{Account, ProvwasmTestApp};  
-  
-use marker::msg::{ExecuteMsg, InitMsg, QueryMsg};  
-use marker::types::Marker;
+use cosmwasm_std::Coin;
+use provwasm_test_tube::wasm::Wasm;
+use provwasm_test_tube::{Module, ProvwasmTestApp, RunnerError};
 
-let app = ProvwasmTestApp::default();
-let accs = app.init_accounts(&[Coin::new(100_000_000_000_000, "nhash")], 1)?;
-let admin = &accs[0];
-  
-let wasm = Wasm::new(&app);
-let wasm_byte_code = std::fs::read("../contracts/marker/artifacts/marker.wasm").unwrap();
-let store_res = wasm.store_code(&wasm_byte_code, None, admin);
-let code_id = store_res?.data.code_id;
+fn test() -> Result<(), RunnerError> {
+    let app = ProvwasmTestApp::default();
+    let accs = app.init_accounts(&[Coin::new(100_000_000_000_000, "nhash")], 1)?;
+    let admin = &accs[0];
+
+    let wasm = Wasm::new(&app);
+    let wasm_byte_code = std::fs::read("../contracts/marker/artifacts/marker.wasm").unwrap();
+    let store_res = wasm.store_code(&wasm_byte_code, None, admin);
+    let code_id = store_res?.data.code_id;
+
+    Ok(())
+}
 ```
 
 Now let's execute the contract and verify that the contract's state is updated properly.
@@ -216,11 +218,10 @@ use provwasm_std::types::provenance::marker::v1::{
 #[test]
 fn create_and_withdraw() -> Result<(), RunnerError> {
     let app = ProvwasmTestApp::default();
-    let accs = app
-        .init_accounts(&[Coin::new(100_000_000_000_000, "nhash")], 1)?;
+    let accs = app.init_accounts(&[Coin::new(100_000_000_000_000, "nhash")], 1)?;
     let admin = &accs[0];
 
-    let marker_module = provwasm_test_tube::module::marker::Marker::new(&app);
+    let marker_module = provwasm_test_tube::marker::Marker::new(&app);
     marker_module.add_marker(
         MsgAddMarkerRequest {
             amount: Some(
