@@ -1,6 +1,6 @@
 [package]
 name = "provwasm-test-tube"
-version = "0.1.0"
+version = "0.1.0-rc1"
 repository = "https://github.com/provenance-io/provwasm-test-tube"
 edition = "2021"
 license = "Apache-2.0"
@@ -20,7 +20,7 @@ provwasm-std = { version = "2.2.0" }
 prost = { version = "0.11.9", default-features = false, features = ["prost-derive"] }
 serde = "1.0.197"
 serde_json = "1.0.115"
-test-tube-prov = { version = "0.1.0", path = "../test-tube" }
+test-tube-prov = { version = "0.1.0-rc1", path = "../test-tube" }
 thiserror = "1.0.58"
 
 [build-dependencies]

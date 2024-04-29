@@ -1,6 +1,6 @@
 [package]
 name = "test-tube-prov"
-version = "0.1.0"
+version = "0.1.0-rc1"
 repository = "https://github.com/provenance-io/provwasm-test-tube"
 edition = "2021"
 license = "Apache-2.0"
