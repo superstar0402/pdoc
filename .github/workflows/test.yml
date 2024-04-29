@@ -13,6 +13,7 @@ jobs:
   #  the task of automatically cancelling CI runs on pushes to the same branch, which is a common feature in
   #  most CI systems but currently not possible with GitHub actions.
   cleanup-runs:
+    name: Cleanup Workflows
     runs-on: ubuntu-latest
     steps:
       - uses: rokroskar/workflow-run-cleanup-action@v0.3.3
@@ -20,16 +21,14 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     if: "!startsWith(github.ref, 'refs/tags/') && github.ref != 'refs/heads/main'"
 
-  build:
+  build_test:
+    name: Build and Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - name: Set up cargo cache
         uses: Swatinem/rust-cache@v2
-
       - name: Build
         run: cargo build --verbose
-
       - name: Run tests
         run: cargo test --verbose
