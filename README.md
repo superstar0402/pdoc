@@ -10,7 +10,7 @@ Blockchain.
 
 This `provwasm-test-tube` repository is a fork
 of [`osmosis-test-tube`](https://github.com/osmosis-labs/test-tube/tree/main/packages/osmosis-test-tube), customized
-for [Provenance](https://github.com/provenance-io/provenance).
+for [Provenance Blockchain](https://github.com/provenance-io/provenance).
 
 ## Features
 
