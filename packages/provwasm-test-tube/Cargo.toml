@@ -29,4 +29,4 @@ bindgen = "0.69.1"
 [dev-dependencies]
 cw1-whitelist = "1.1.1"
 rayon = "1.5.3"
-marker = { version = "2.2.0", git = "https://github.com/provenance-io/provwasm" }
+#marker = { version = "2.2.0", git = "https://github.com/provenance-io/provwasm" }
